@@ -1,0 +1,25 @@
+/* ===== Scrollbar CSS ===== */
+
+/*https://codepen.io/stephenpaton-tech/full/JjRvGmY */
+
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #ffffff #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 1px;
+    border: 1px solid #ffffff;
+  }

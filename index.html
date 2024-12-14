@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitatGo - Alquiler de Casas en el Mundo</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-media-queries.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <div class="header-content">
+            <div class="header-card">
+                <h1 class="first-text">HabitatGo</h1>
+                <p>Encuentra el hogar perfecto, en cualquier lugar del mundo.</p>
+                <a href="#features" class="btn" id="first-button">
+                    <i class="bi bi-arrow-down-circle"></i> Descubre más
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="features">
+            <div class="feature fade-in">
+                <h2><i class="bi bi-globe"></i> Conexión Global</h2>
+                <p>Accede a casas en más de 100 países y vive experiencias únicas.</p>
+            </div>
+            <div class="feature fade-in">
+                <h2><i class="bi bi-check-circle"></i> Reservas Simples</h2>
+                <p>Con nuestra web intuitiva, encuentra y alquila en segundos.</p>
+            </div>
+            <div class="feature fade-in">
+                <h2><i class="bi bi-shield-lock"></i> Seguro y Confiable</h2>
+                <p>Tu seguridad es nuestra prioridad. Gestionamos pagos y contratos de manera profesional.</p>
+            </div>
+            <div class="feature fade-in">
+                <h2><i class="bi bi-heart"></i> Servicio Personalizado</h2>
+                <p>Recibe recomendaciones y atención personalizada en cada paso de tu viaje.</p>
+            </div>
+        </section>
+
+        <section id="cta">
+            <h2><i class="bi bi-geo-alt"></i> ¡Comienza tu aventura hoy!</h2>
+            <p>Accede a nuestro portal y encuentra tu próximo hogar lejos de casa.</p>
+            <a href="/portal.html" class="btn">Accede a nuestro portal</a>
+        </section>
+        <section id="contact">
+            <h2>Contacto</h2>
+            <p>¿Tienes preguntas o necesitas más información? Contáctanos completando el siguiente formulario:</p>
+            <form id="contactForm">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" placeholder="Tu nombre">
+
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="Tu correo electrónico">
+
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí..." rows="5"></textarea>
+
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+            <div id="formMessage" class="hidden"></div>
+        </section>
+
+        <button class="chat-button">💬</button>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">Chat</div>
+            <div class="chat-body" id="chatBody">
+                <div id="message-list">
+                    <p>¡Hola! ¿En qué puedo ayudarte?</p>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <form id="form-send-message">
+                    <input type="text" name="message" placeholder="Escribe un mensaje..." required>
+                    <input type="hidden" name="sent-by" value="Usuario">
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HabitatGo. Todos los derechos reservados.</p>
+        <ul>
+            <li><a href="#"><i class="bi bi-file-earmark-text"></i> Política de privacidad</a></li>
+            <li><a href="#"><i class="bi bi-file-earmark-text"></i> Términos de uso</a></li>
+        </ul>
+    </footer>
+    <script type="module" src="js/firebase/firebase-crud.js"></script>
+    <script src="js/word-typing.js"></script>
+    <script>
+        // text parallax
+        document.addEventListener("scroll", () => {
+            const element = document.querySelector(".header-card");
+            const speed = 0.5;
+            const offset = window.pageYOffset;
+            element.style.transform = `translateY(${offset * speed}px)`;
+        });
+
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+
+            elements.forEach((element) => {
+                const position = element.getBoundingClientRect().top;
+                const viewportHeight = window.innerHeight;
+
+                if (position < viewportHeight - 100) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        }
+
+
+        window.addEventListener('scroll', revealOnScroll, { passive: true });
+
+
+        revealOnScroll();
+
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+            const formMessage = document.getElementById("formMessage");
+
+            if (!name || !email || !message) {
+                formMessage.textContent = "Por favor, completa todos los campos.";
+                formMessage.classList.remove("hidden");
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = "Por favor, introduce un correo electrónico válido.";
+                formMessage.classList.remove("hidden");
+                return;
+            }
+
+            if (message.length < 10) {
+                formMessage.textContent = "El mensaje debe tener al menos 10 caracteres.";
+                formMessage.classList.remove("hidden");
+                return;
+            }
+
+            formMessage.textContent = "¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.";
+            formMessage.classList.remove("hidden");
+            formMessage.style.color = "#4caf50";
+
+            window.open(`mailto:habitatgo@soporte.es?subject=Contacto HabitatGo&body=${message}`);
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+</body>
+
+</html>
